@@ -7,8 +7,8 @@ import utils
 
 class CaptureManager(object):
 
-    def __init__(self, capture, previewWindowManager = None,
-                 shouldMirrorPreview = False):
+    def __init__(self, capture, previewWindowManager=None,
+                 shouldMirrorPreview=False):
 
         self.previewWindowManager = previewWindowManager
         self.shouldMirrorPreview = shouldMirrorPreview
@@ -40,7 +40,7 @@ class CaptureManager(object):
     def frame(self):
         if self._enteredFrame and self._frame is None:
             _, self._frame = self._capture.retrieve(
-                    self._frame, self.channel)
+                self._frame, self.channel)
         return self._frame
 
     @property
@@ -75,7 +75,7 @@ class CaptureManager(object):
             self._startTime = time.time()
         else:
             timeElapsed = time.time() - self._startTime
-            self._fpsEstimate =  self._framesElapsed / timeElapsed
+            self._fpsEstimate = self._framesElapsed / timeElapsed
         self._framesElapsed += 1
 
         # Draw to the window, if any.
@@ -104,7 +104,7 @@ class CaptureManager(object):
 
     def startWritingVideo(
             self, filename,
-            encoding = cv2.VideoWriter_fourcc('M','J','P','G')):
+            encoding=cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')):
         """Start writing exited frames to a video file."""
         self._videoFilename = filename
         self._videoEncoding = encoding
@@ -131,7 +131,7 @@ class CaptureManager(object):
                 else:
                     fps = self._fpsEstimate
             size = (int(self._capture.get(
-                        cv2.CAP_PROP_FRAME_WIDTH)),
+                cv2.CAP_PROP_FRAME_WIDTH)),
                     int(self._capture.get(
                         cv2.CAP_PROP_FRAME_HEIGHT)))
             self._videoWriter = cv2.VideoWriter(
@@ -143,7 +143,7 @@ class CaptureManager(object):
 
 class WindowManager(object):
 
-    def __init__(self, windowName, keypressCallback = None):
+    def __init__(self, windowName, keypressCallback=None):
         self.keypressCallback = keypressCallback
 
         self._windowName = windowName
@@ -168,6 +168,7 @@ class WindowManager(object):
         keycode = cv2.waitKey(1)
         if self.keypressCallback is not None and keycode != -1:
             self.keypressCallback(keycode)
+
 
 class PygameWindowManager(WindowManager):
 

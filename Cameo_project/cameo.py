@@ -3,15 +3,13 @@ import filters
 from managers import PygameWindowManager as WindowManager, CaptureManager
 
 
-
 class Cameo(object):
 
     def __init__(self):
         self._windowManager = WindowManager('Cameo',
                                             self.onKeypress)
         self._captureManager = CaptureManager(cv2.VideoCapture(0), self._windowManager, True)
-        self._curveFilter = filters.EmbossFilter()
-
+        self._curveFilter = filters.BGRCurveFilter()
 
     def run(self):
         """Run the main loop."""
@@ -21,7 +19,7 @@ class Cameo(object):
             frame = self._captureManager.frame
 
             if frame is not None:
-                #filters.strokeEdges(frame, frame)
+                filters.strokeEdges(frame, frame)
                 self._curveFilter.apply(frame, frame)
                 pass
 
@@ -47,4 +45,4 @@ class Cameo(object):
 
 
 if __name__ == "__main__":
-    Cameo().run()
+   Cameo().run()
